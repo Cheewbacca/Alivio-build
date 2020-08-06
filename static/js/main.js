@@ -2,11 +2,34 @@
 
 'use strict';
 
-
-
 const _window = window;
 
 _window.onload = function(){
+
+   // This function get search users cookie
+
+   function getCookie(name) { 
+        var nameEQ = name + "="; 
+        var ca = document.cookie.split(';'); 
+        for(var i=0 ;i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return 0; // if user hasn`t visit site, return false to set cookies
+    }
+
+    // This function set cookies for 1 year
+    function setCookie(name,value,days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days*24*60*60*1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "")  + expires + "; path=/"; // setting cookie
+    }
+
     const burger = _window.document.getElementById("burger");
     const hiddenMenu = _window.document.getElementsByTagName("nav")[0];
 
@@ -83,8 +106,104 @@ _window.onload = function(){
         } 
     });
 
+    // Ligh / Dark Themes 
+
+    (function increaseOpacity(arrows){
+
+        arrows.forEach((arrow, index) => {
+            if (Number(arrow.style.opacity) === 1){
+                arrow.style.opacity = 0;
+            }
+            arrow.style.opacity = Number(arrow.style.opacity) + 0.1;
+        });
+
+        _window.setTimeout(() => increaseOpacity(arrows), 200); 
+
+    })([..._window.document.getElementsByClassName("arrow")]);
+
+
+    const hideArrows = _window.document.getElementById("arrows");
+
+    const showSwitcher = this.document.getElementById("show_switcher");
+
+    hideArrows.addEventListener("click", () => {
+        if (_window.innerWidth <= 500){
+            themeSwitcher.parentNode.style.transform = "translate(500%)";
+            showSwitcher.style.display = "flex";
+        } else {
+            themeSwitcher.parentNode.style.transform = "translate(-500%)";
+            showSwitcher.style.display = "flex";
+        }
+    });
+
+    showSwitcher.addEventListener("click", () => {
+        themeSwitcher.parentNode.style.transform = "translate(0)";
+        showSwitcher.style.display = "none";
+    });
+
+    const lamp_light = this.document.getElementById("lamp_light");
+
+    const lamp_light_right = this.document.getElementById("lamp_light_right");
+
+    const lamp_strip = this.document.getElementById("lamp_strip");
+
+    const darkTheme = {
+        lamp_color : "#d6d6d6"
+    };
+
+    const lightTheme = {
+        lamp_color : "#fec165",
+        lamp_right_color : "#fdb441"
+    };
+
+    let isLight;
+
+    if( getCookie('dark') == 'true'){
+        isLight = false;
+        _window.document.body.classList.add("dark");
+        lamp_light.style.fill = darkTheme.lamp_color;
+        lamp_light_right.style.fill = darkTheme.lamp_color;
+    } else {
+        isLight = true;
+    }
+
+    const themeSwitcher = this.document.getElementById("switcher");
+
+    themeSwitcher.addEventListener("click", function(){
+
+        lamp_strip.classList.remove("stripAimation");
+
+        if (isLight) {
+            _window.document.body.classList.add("dark");
+            lamp_light.style.fill = darkTheme.lamp_color;
+            lamp_light_right.style.fill = darkTheme.lamp_color;
+            themeSwitcher.parentNode.classList.remove("switcher-shadow");
+            lamp_strip.classList.add("stripAimation");
+            setCookie('dark', true, 360);
+            setTimeout(function() {
+                lamp_strip.classList.remove("stripAimation");
+            }, 500);
+        }else {
+            _window.document.body.classList.remove("dark");
+            lamp_light.style.fill = lightTheme.lamp_color;
+            lamp_light_right.style.fill = lightTheme.lamp_right_color;
+            themeSwitcher.parentNode.classList.add("switcher-shadow");
+            lamp_strip.classList.add("stripAimation");
+            setCookie('dark', false, 360);
+            setTimeout(function() {
+                lamp_strip.classList.remove("stripAimation");
+            }, 500);
+        }
+        
+        isLight = !isLight;
+        
+    });
+
     const preloader = _window.document.getElementById("preloader");
 
-    let show_content = _window.setTimeout( () => preloader.style.display = "none", 2000 );
+    if (preloader){
+        let show_content = _window.setTimeout( () => preloader.style.display = "none", 2000 );
+    }
+    
 };
 
