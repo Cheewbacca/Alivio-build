@@ -1,17 +1,33 @@
 {
-    "short_name": "Alivio",
-    "name": "Alivio: my website",
-    "description": "Alivio site to train my skills",
-    "icons": [
-      {
-        "src": "/static/img/plant.png",
-        "type": "image/png",
-        "sizes": "192x192"
-      }
-    ],
-    "start_url": "/Alivio-build/",
-    "background_color": "#ffffff",
-    "display": "standalone",
-    "scope": "/",
-    "theme_color": "#ffffff"
-  }
+  "short_name": "Alivio",
+  "name": "Alivio: my website",
+  "description": "Alivio site to train my skills",
+  "icons": [
+    {
+      "src": "/static/img/plant.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "/Alivio-build/",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#ffffff",
+  "shortcuts": [
+    {
+      "name": "How's weather today?",
+      "short_name": "Today",
+      "description": "View weather information for today",
+      "url": "/today?source=pwa",
+      "icons": [{ "src": "/static/img/plant.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "How's weather tomorrow?",
+      "short_name": "Tomorrow",
+      "description": "View weather information for tomorrow",
+      "url": "/tomorrow?source=pwa",
+      "icons": [{ "src": "/static/img/plant.png", "sizes": "192x192" }]
+    }
+  ]
+}
