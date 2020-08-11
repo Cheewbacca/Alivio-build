@@ -1,0 +1,17 @@
+{
+    "short_name": "Alivio",
+    "name": "Alivio: my website",
+    "description": "Alivio site to train my skills",
+    "icons": [
+      {
+        "src": "/static/img/plant.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      }
+    ],
+    "start_url": "/Alivio-build/",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#ffffff"
+  }
